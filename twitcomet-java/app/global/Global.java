@@ -1,6 +1,5 @@
 package global;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
@@ -10,8 +9,6 @@ import play.GlobalSettings;
 import play.Logger;
 import play.db.ebean.Transactional;
 import play.libs.Yaml;
-import play.mvc.Action;
-import play.mvc.Http.Request;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.TxRunnable;
@@ -19,14 +16,11 @@ import com.avaje.ebean.TxRunnable;
 public class Global extends GlobalSettings {
 
     public void onStart(Application app) {
-        InitialData.insert();
+    	if (app.isDev() || app.isTest()) {
+    		InitialData.insert();
+    	}
     }
     
-    @Override
-    public Action onRequest(Request req, Method method) {
-    	 InitialData.insert();
-    	 return super.onRequest(req, method);
-    }
     
     private static class InitialData {
         
