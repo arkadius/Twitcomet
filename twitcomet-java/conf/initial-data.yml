@@ -1,0 +1,107 @@
+users:
+
+    - !!models.User
+        id:             1
+        login:          user1
+        password:       pass
+        email:          user1@gmail.com
+        lastname:       user
+        firstname:      number1
+        description:    Lorem ipsum dolor sit amet
+        registerDate:   2012-02-01
+        following:
+            - !!models.User
+                id: 2
+            - !!models.User
+                id: 3                
+            - !!models.User
+                id: 4
+    
+    - !!models.User
+        id:             2
+        login:          user2
+        password:       pass
+        email:          user2@gmail.com
+        lastname:       user
+        firstname:      number2
+        description:    Lorem ipsum dolor sit amet
+        registerDate:   2012-02-01
+        following:
+            - !!models.User
+                id: 1
+                
+    - !!models.User
+        id:             3
+        login:          user3
+        password:       pass
+        email:          user3@gmail.com
+        lastname:       user
+        firstname:      number3
+        description:    Lorem ipsum dolor sit amet
+        registerDate:   2012-02-01
+        following:
+            - !!models.User
+                id: 2
+            - !!models.User
+                id: 1
+                
+    - !!models.User
+        id:             4
+        login:          user4
+        password:       pass
+        email:          user4@gmail.com
+        lastname:       user
+        firstname:      number4
+        description:    Lorem ipsum dolor sit amet
+        registerDate:   2012-02-01
+        following:
+            - !!models.User
+                id: 1
+
+messages:
+
+    - !!models.Message
+        id:             1
+        text:           "Message test 1 @user2" 
+        date:           2012-02-01
+        author:         !!models.User
+                            id: 1
+                            
+    - !!models.Message
+        id:             2
+        text:           "Message test 2 @user1"
+        date:           2012-02-01
+        author:         !!models.User
+                            id: 1
+        reference:      !!models.Message
+                            id: 1
+                            
+    - !!models.Message
+        id:             3
+        text:           "Message test 3"
+        date:           2012-02-01
+        author:         !!models.User
+                            id: 1
+                            
+    - !!models.Message
+        id:             4
+        text:           "Message test 4"
+        date:           2012-02-01
+        author:         !!models.User
+                            id: 2
+        reference:      !!models.Message
+                            id: 2
+
+mentions:
+
+    - !!models.Mention
+        user:           !!models.User
+                            id: 2
+        message:        !!models.Message
+                            id: 1
+                            
+    - !!models.Mention
+        user:          !!models.User
+                            id: 1
+        message:        !!models.Message
+                            id: 2
