@@ -35,7 +35,8 @@ public class Global extends GlobalSettings {
 						
 						Logger.info("Chargement des données initiales");
 		                
-		                Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
+		                @SuppressWarnings("unchecked")
+						Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
 
 		                Ebean.save(all.get("users"));
 		                for(Object user: all.get("users")) {
@@ -48,7 +49,6 @@ public class Global extends GlobalSettings {
 		                
 		                Logger.info("Chargement des données initiales terminé avec succès");
 		                
-						
 					}
 				});
             	
