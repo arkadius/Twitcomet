@@ -7,11 +7,11 @@ import javax.persistence.Table;
 
 import com.avaje.ebean.validation.NotNull;
 
-import play.db.ebean.Model.Finder;
+import play.db.ebean.Model;
 
 @Entity
 @Table(name="mentions")
-public class Mention {
+public class Mention extends Model {
 	
 	@Id
 	public long id;

@@ -11,11 +11,11 @@ import javax.persistence.Table;
 import com.avaje.ebean.validation.NotNull;
 
 import play.data.validation.Constraints;
-import play.db.ebean.Model.Finder;
+import play.db.ebean.Model;
 
 @Entity
 @Table(name="messages")
-public class Message {
+public class Message extends Model {
 	
 	@Id
 	public long id;

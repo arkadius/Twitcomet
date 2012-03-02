@@ -14,13 +14,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import play.data.validation.Constraints;
-import play.db.ebean.Model.Finder;
+import play.db.ebean.Model;
 
 import com.avaje.ebean.validation.NotNull;
 
 @Entity
 @Table(name="users")
-public class User {
+public class User extends Model {
 	
 	@Id
 	public long id;
