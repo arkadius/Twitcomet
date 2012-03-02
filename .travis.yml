@@ -1,0 +1,6 @@
+before_script: cd twitcomet-java
+langugage: scala
+scala:
+  - 2.9.1
+notifications:
+  email: false
