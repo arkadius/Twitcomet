@@ -1,14 +1,19 @@
 package controllers;
 
-import play.*;
-import play.mvc.*;
+import java.util.List;
 
-import views.html.*;
+import models.Message;
+import play.mvc.Controller;
+import play.mvc.Result;
 
 public class Application extends Controller {
   
   public static Result index() {
-    return ok(index.render("Your new application is ready."));
+	List<Message> messages = Message.findGlobalLastMessages(40l);
+	Long lastId = messages.get(messages.size()-1).id;
+	
+	
+    return ok(index.render(messages, lastId));
   }
   
 }

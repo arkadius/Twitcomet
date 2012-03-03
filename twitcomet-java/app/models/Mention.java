@@ -5,9 +5,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.avaje.ebean.validation.NotNull;
-
 import play.db.ebean.Model;
+
+import com.avaje.ebean.validation.NotNull;
 
 @Entity
 @Table(name="mentions")
