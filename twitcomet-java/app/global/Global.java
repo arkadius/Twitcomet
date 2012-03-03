@@ -13,7 +13,6 @@ import models.User;
 import play.Application;
 import play.GlobalSettings;
 import play.Logger;
-import play.db.ebean.Transactional;
 import play.libs.Yaml;
 import play.mvc.Action;
 import play.mvc.Http.Request;
@@ -28,11 +27,16 @@ public class Global extends GlobalSettings {
     		InitialData.insert();
     	}
     }
+    
     @Override
-    public Action onRequest(Request arg0, Method arg1) {
-    	InitialData.insert();
-    	return super.onRequest(arg0, arg1);
+    public Action<?> onRequest(Request req, Method method) {
+    	
+    	// Active les logs SQL
+    	Ebean.getServer(null).getAdminLogging().setDebugGeneratedSql(true);
+    	
+    	return super.onRequest(req, method);
     }
+    
     
     
     private static class InitialData {
@@ -40,10 +44,9 @@ public class Global extends GlobalSettings {
     	private static final int FREQUENCE_MESSAGE_REFERENCE = 4;
 		private static final int NB_MENTIONS = 50;
 		private static final int NB_MESSAGES = 200;
-
-		@Transactional
+	
         public static void insert() {
-            if(Ebean.find(User.class).findRowCount() == 0) {
+            if (User.find.findRowCount() == 0) {
             	
             	Ebean.execute(new TxRunnable() {
 					
@@ -54,7 +57,7 @@ public class Global extends GlobalSettings {
 						Random rand = new Random();
 		                
 		                @SuppressWarnings("unchecked")
-						Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
+						final Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
 		                
 		                // Insertion des utilisateurs et de leurs followers
 		                Ebean.save(all.get("users"));
@@ -63,8 +66,7 @@ public class Global extends GlobalSettings {
 		                }
 		                
 		                // Génération et insertion des messages
-		                GregorianCalendar cal = new GregorianCalendar();
-		                cal.add(Calendar.MONTH, -1);
+		                final GregorianCalendar cal = new GregorianCalendar();
 		                for (int i=0; i<NB_MESSAGES; i++) {
 		                	Message msg = new Message();
 		                	msg.author = User.find.byId(rand.nextInt(3)+1l);
