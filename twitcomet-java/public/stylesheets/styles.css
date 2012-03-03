@@ -1,0 +1,21 @@
+#timeline .well {
+	padding: 5px;
+}
+
+#timeline .message p {
+	margin:2px 0 2px 0;
+	font-size: 1.1em;
+}
+
+#timeline .message .login {
+	font-style: italic;
+}
+
+#timeline .message .txt {
+	font-family:georgia;
+	font-size: 1.2em;
+}
+
+#timeline .message .info {
+	text-align: right
+}
