@@ -5,7 +5,7 @@ import java.util.List;
 import models.Message;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.*;
+import views.html.index;
 
 public class Application extends Controller {
   

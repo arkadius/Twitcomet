@@ -22,6 +22,8 @@ import com.avaje.ebean.validation.NotNull;
 @Table(name="messages")
 public class Message extends Model {
 	
+	private static final long serialVersionUID = 1607739783510045149L;
+
 	private static final SimpleDateFormat datetimeFr = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
 	@Id

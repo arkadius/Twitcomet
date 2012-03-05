@@ -22,6 +22,8 @@ import com.avaje.ebean.validation.NotNull;
 @Table(name="users")
 public class User extends Model {
 	
+	private static final long serialVersionUID = 5206221463639837118L;
+
 	@Id
 	public long id;
 	
