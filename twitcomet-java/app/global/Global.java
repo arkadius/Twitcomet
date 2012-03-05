@@ -59,13 +59,15 @@ public class Global extends GlobalSettings {
 		                @SuppressWarnings("unchecked")
 						final Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
 		                
-		                // Insertion des utilisateurs et de leurs followers
+		                Logger.debug("Chargements des utilisateurs");
 		                Ebean.save(all.get("users"));
+		                
+		                Logger.debug("Chargements des followers");
 		                for(Object user: all.get("users")) {
 		                    Ebean.saveManyToManyAssociations(user, "following");
 		                }
 		                
-		                // Génération et insertion des messages
+		                Logger.debug("Chargement des messages");
 		                final GregorianCalendar cal = new GregorianCalendar();
 		                for (int i=0; i<NB_MESSAGES; i++) {
 		                	Message msg = new Message();
@@ -83,7 +85,7 @@ public class Global extends GlobalSettings {
 		                	msg.save();
 		                }
 		                
-		                // Génération et insertion des mentions
+		                Logger.debug("Chargement des mentions");
 		                for (int i=0; i<NB_MENTIONS; i++) {
 	                		Mention mention = new Mention();
 	                		Message msg = Message.find.byId(rand.nextInt(NB_MESSAGES)+1l);
