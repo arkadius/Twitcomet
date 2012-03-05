@@ -72,5 +72,13 @@ public class User extends Model {
 		Long.class, User.class
 	);
 	
+	public static boolean authentificate(final String login, final String password) {
+		return find.where().eq("login", login).eq("password", password).findRowCount() == 1;
+	}
+	
+	public static User findByLogin(final String login) {
+		return find.where().eq("login", login).findUnique();
+	}
+	
 
 }

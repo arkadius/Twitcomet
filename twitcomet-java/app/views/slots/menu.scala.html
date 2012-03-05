@@ -1,0 +1,32 @@
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+			</a> <a class="brand" href="#">Twit'Comet</a>
+			<div class="nav-collapse">
+				<ul class="nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+				
+				@if(session.get("user.id")) {
+					<ul class="nav pull-right">
+						<li><a href="#">Hello @session.get("user.login")</a></li>
+						<li><a href="@routes.Connection.logout()">Déconnexion</a></li>
+					</ul>
+					
+				} else {
+				
+					@helper.form(action = routes.Connection.authentificate(), 'class -> "navbar-search pull-right") {
+						<input type="text" name="login" placeholder="Login" class="input-small" required="required"/>
+						<input type="password" name="password" placeholder="Password" class="input-small" required="required"/>
+						<input type="submit" class="btn-small btn-info" value="OK" /> 
+					}
+				}
+				
+			</div>
+			
+		</div>
+	</div>
+</div>

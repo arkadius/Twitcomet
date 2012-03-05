@@ -2,14 +2,10 @@
 
 @main("Welcome to Twit'Comet") {
 
-		
-<pre id="debug"><strong>Debug</strong>
-Dernier ID : <span id="lastId">@lastIdMessage</span>
-</pre>
-	
-    <a href="#" class="btn">Charger 20 derniers tweets</a>
-    <a href="#" class="btn">Charger 20 derniers tweets depuis le tweet numéro X</a><br /><br />
-    
+	<pre id="debug"><strong>Debug</strong>
+	Dernier ID : <span id="lastId">@lastIdMessage</span>
+	</pre>
+
 	<div id="timeline">
 		@for(message <- messages) {
 			<div class="message well" data-id="@message.id">
@@ -23,5 +19,6 @@ Dernier ID : <span id="lastId">@lastIdMessage</span>
 		}
 	</div>
 	
+	<script>var lastId = @lastIdMessage</script>
 
 }
