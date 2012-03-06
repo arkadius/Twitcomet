@@ -12,6 +12,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.h2.util.StringUtils;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
@@ -22,6 +25,8 @@ import com.avaje.ebean.validation.NotNull;
 @Table(name="users")
 public class User extends Model {
 	
+	public static final String VALIDATION_FAILED_PASSWORD = "PasswordCopyInvalid";
+
 	private static final long serialVersionUID = 5206221463639837118L;
 
 	@Id
@@ -36,6 +41,9 @@ public class User extends Model {
 	@Constraints.Required
 	@NotNull
 	public String password;
+	
+	@Transient
+	public String password2;
 	
 	@Constraints.Email
 	@Constraints.Required
@@ -78,6 +86,22 @@ public class User extends Model {
 	
 	public static User findByLogin(final String login) {
 		return find.where().eq("login", login).findUnique();
+	}
+	
+	public String validate() {
+		if (!StringUtils.equals(password, password2)) {
+			return VALIDATION_FAILED_PASSWORD;
+		}
+		return null;
+	}
+	
+	@Override
+	public void save() {
+		if (registerDate == null) {
+			registerDate = new Date();
+		}
+		
+		super.save();
 	}
 	
 
