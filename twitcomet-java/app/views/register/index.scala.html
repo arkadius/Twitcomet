@@ -1,0 +1,31 @@
+@(userForm: Form[User])
+
+@* Active le décorateur twitterBootstrapV2 pour les forms *@
+@import custom.twitterBootstrapV2._
+@import views.html.helper._
+@implicitField = @{ FieldConstructor(twitterBootstrapV2FieldConstructor.f) }
+
+@main("Register to TwitComet") {
+
+	@helper.form(action = routes.Register.validate(), 'class -> "form-horizontal") {
+	
+  		<fieldset>
+  		
+    		<legend>Create an account</legend>		
+			
+			@helper.inputText(userForm("login"), 		'_label -> "Login")
+			@helper.inputText(userForm("email"), 		'_label -> "Email")
+			@helper.inputPassword(userForm("password"), '_label -> "Password")
+			@helper.inputPassword(userForm("password2"),'_label -> "Password")
+			@helper.inputText(userForm("firstname"), 	'_label -> "Firstname")
+			@helper.inputText(userForm("lastname"),		'_label -> "Lastname")
+			@helper.textarea(userForm("description"), 	'_label -> "Bio")
+			
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">Save changes</button>
+			</div>
+          
+		</fieldset>
+		
+	}
+}
