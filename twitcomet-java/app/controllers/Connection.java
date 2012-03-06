@@ -13,13 +13,11 @@ public class Connection extends Controller {
 		Form<Login> formLogin = form(Login.class).bindFromRequest();
 		
 		if (formLogin.hasErrors()) {
-			flash("error", "Connexion impossible");
+			flash("error", "Connexion impossible : merci de vérifier vos identifiants");
 		} else {
 			User user = User.findByLogin(formLogin.get().login);
 			flash("success", "Bonjour "+user.login);
-			
-			session("user.id", String.valueOf(user.id));
-			session("user.login", user.login);
+			login(user);
 		}
 		
 		return redirect(routes.Application.index());
@@ -28,6 +26,11 @@ public class Connection extends Controller {
 	public static Result logout() {
 		session().clear();
 		return redirect(routes.Application.index());
+	}
+	
+	public static void login(User user) {
+		session("user.id", String.valueOf(user.id));
+		session("user.login", user.login);
 	}
 
 }
