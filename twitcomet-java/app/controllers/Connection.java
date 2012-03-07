@@ -20,12 +20,12 @@ public class Connection extends Controller {
 			login(user);
 		}
 		
-		return redirect(routes.Application.index());
+		return redirect(routes.Wall.index());
 	}
 
 	public static Result logout() {
 		session().clear();
-		return redirect(routes.Application.index());
+		return redirect(routes.Wall.index());
 	}
 	
 	public static void login(User user) {

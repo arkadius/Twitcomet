@@ -32,7 +32,7 @@ public class Register extends Controller {
 			Connection.login(user);
 			flash("success", "Bienvenue sur TwitCommet "+user.login);
 			
-			return redirect(routes.Application.index());
+			return redirect(routes.Wall.index());
 		}
 	}
 

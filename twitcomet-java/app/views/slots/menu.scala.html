@@ -2,18 +2,24 @@
 	<div class="navbar-inner">
 		<div class="container">
 			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-			</a> <a class="brand" href="#">Twit'Comet</a>
+			</a> <a class="brand" href="@routes.Wall.index()">Twit'Comet</a>
 			<div class="nav-collapse">
 				<ul class="nav">
 				
 					<li @if(Template.get("action").equals("Application.index")) { class="active" }>
-						<a href="@routes.Application.index()">Wall</a>
+						<a href="@routes.Wall.index()">Wall</a>
 					</li>
-					<li @if(Template.get("action").equals("Register.index")) { class="active" }>
-						<a href="@routes.Register.index()">Register</a>
-					</li>
+					
+					@if(session.get("user.id") == null) {
+						<li @if(Template.get("action").equals("Register.index")) { class="active" }>
+							<a href="@routes.Register.index()">Register</a>
+						</li>
+					} else {
+						<li>
+							<a href="#" class="post-event">Post</a>
+						</li>
+					}
 				</ul>
-				
 				
 				@if(session.get("user.id")) {
 					<ul class="nav pull-right">

@@ -3,7 +3,8 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           controllers.Wall.index()
+GET		/post						controllers.Wall.create()
 
 # Login
 GET		/logout						controllers.Connection.logout()
