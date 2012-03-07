@@ -5,10 +5,15 @@
 			</a> <a class="brand" href="#">Twit'Comet</a>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li class="active"><a href="#">Wall</a></li>
-					<li><a href="@routes.Register.index()">Register</a></li>
-					<li><a href="#contact">Contact</a></li>
+				
+					<li @if(Template.get("action").equals("Application.index")) { class="active" }>
+						<a href="@routes.Application.index()">Wall</a>
+					</li>
+					<li @if(Template.get("action").equals("Register.index")) { class="active" }>
+						<a href="@routes.Register.index()">Register</a>
+					</li>
 				</ul>
+				
 				
 				@if(session.get("user.id")) {
 					<ul class="nav pull-right">

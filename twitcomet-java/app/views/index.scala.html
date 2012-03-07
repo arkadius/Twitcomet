@@ -9,11 +9,6 @@
 
 	<div id="timeline">
 		@for(message <- messages) {
-				<p class="txt">@message.text</p>
-				@if(message.reference != null) {
-				}
-				<p class="info">Par <a href="#">@message.author.login</a> le <a href="#" class="date">@message.getDateFr()</a></p>
-			</div>
 			@wall.message(message)
 		}
 	</div>
