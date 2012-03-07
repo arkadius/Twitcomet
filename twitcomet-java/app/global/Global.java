@@ -9,6 +9,7 @@ import java.util.Random;
 
 import models.Mention;
 import models.Message;
+import models.Template;
 import models.User;
 import play.Application;
 import play.GlobalSettings;
@@ -19,6 +20,7 @@ import play.mvc.Http.Request;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.TxRunnable;
+
 
 public class Global extends GlobalSettings {
 
@@ -33,6 +35,11 @@ public class Global extends GlobalSettings {
     	
     	// Active les logs SQL
     	Ebean.getServer(null).getAdminLogging().setDebugGeneratedSql(true);
+    	
+    	String action = method.getDeclaringClass().getName().replaceFirst("controllers.", "")+"."+method.getName();
+    	Logger.debug("@Call "+action);
+    	
+    	Template.put("action", action);
     	
     	return super.onRequest(req, method);
     }
