@@ -19,3 +19,21 @@
 #timeline .message .info {
 	text-align: right
 }
+
+#post-zone {
+	text-align: center;;
+	display: none
+}
+
+#post-zone .well {
+	padding-bottom: 10px;
+}
+
+#post-zone textarea {
+	width: 90%;
+	height: 50px;
+}
+
+#post-zone input[type=submit] {
+	width: 100px
+}

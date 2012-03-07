@@ -4,11 +4,4 @@
 <script src="@routes.Assets.at("javascripts/moment.js")"></script>
 <script>moment.lang('fr');</script>
 
-<script>
-$(function() {
-	$('.date').each(function() {
-		var depuis = moment($(this).text(), "DD/MM/YYYY HH:mm:ss").fromNow();
-		$(this).append(' ('+depuis+')');
-	});
-});
-</script>
+<script src="@routes.Assets.at("javascripts/script.js")"></script>

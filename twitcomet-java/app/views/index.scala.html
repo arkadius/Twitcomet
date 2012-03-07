@@ -5,7 +5,18 @@
 
 	<pre id="debug"><strong>Debug</strong>
 	Dernier ID : <span id="lastId">@lastIdMessage</span>
-	</pre>
+	Action : @Template.get("action")</pre>
+	
+	@if(session.get("user.id") != null) {
+	<div id="post-zone" class="row">
+		  <div class="span6 offset3 well">
+		  	<a class="close">&times;</a>
+		  	<label for="twit-zone">Shoot your message</label>
+		  	<textarea id="twit-zone" maxlength="141"></textarea>
+		  	<input type="submit" class="btn-info" value="Twit'it" />
+		  </div>
+	</div>
+	}
 
 	<div id="timeline">
 		@for(message <- messages) {
