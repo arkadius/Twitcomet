@@ -30,7 +30,7 @@ public class Message extends Model {
 	public long id;
 	
 	@Constraints.Required
-	@Constraints.MaxLength(141)	// betten than Twitter !
+	@Constraints.MaxLength(141)	// better than Twitter !
 	@Column(length=141)
 	@NotNull
 	public String text;
