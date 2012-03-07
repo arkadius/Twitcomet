@@ -1,5 +1,6 @@
 @(messages: List[Message], lastIdMessage: Long)
 
+
 @main("Welcome to Twit'Comet") {
 
 	<pre id="debug"><strong>Debug</strong>
@@ -8,14 +9,12 @@
 
 	<div id="timeline">
 		@for(message <- messages) {
-			<div class="message well" data-id="@message.id">
-				<p><a href="#" class="auteur">@message.author.firstname @message.author.lastname</a> <span class="login">@@@message.author.login</span></p>
 				<p class="txt">@message.text</p>
 				@if(message.reference != null) {
-					<p class="ref">En réponse au message <a href="#">#@message.reference.id</a></p>
 				}
 				<p class="info">Par <a href="#">@message.author.login</a> le <a href="#" class="date">@message.getDateFr()</a></p>
 			</div>
+			@wall.message(message)
 		}
 	</div>
 	
