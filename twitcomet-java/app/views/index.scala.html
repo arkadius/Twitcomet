@@ -2,19 +2,7 @@
 
 @main("Welcome to Twit'Comet") {
 
-	@if(session.get("user.id") != null) {
-	<div id="post-zone" class="row">
-		<div class="span6 offset3 well">
-			@helper.form(action = routes.Wall.create()) {
-		  		<a class="close">&times;</a>
-		  		<label for="twit-zone">Shoot your message</label>
-		  		<textarea id="twit-zone" name="message" maxlength="141"></textarea>
-		  		<a class="btn btn-info" id="twitit">Twit'it</a>
-		  	}
-		</div>
-	</div>
-	}
-
+	@wall.sendMessageZone()
 	<div id="timeline">
 		@for(message <- messages) {
 			@wall.message(message)
