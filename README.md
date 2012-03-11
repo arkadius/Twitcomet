@@ -1,7 +1,6 @@
 # TwitComet [![Build Status](https://secure.travis-ci.org/studiodev/Twitcomet.png?branch=master)](http://travis-ci.org/studiodev/Twitcomet)
 
 Application expérimentale simulant un "twitter-like" basée sur **PlayFramework 2.0**
-Objectif : réaliser l'application en deux versions : Java et Scala.
  
 ## Technologies
 
