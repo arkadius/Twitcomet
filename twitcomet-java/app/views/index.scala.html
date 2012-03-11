@@ -1,20 +1,17 @@
 @(messages: List[Message], lastIdMessage: Long)
 
-
 @main("Welcome to Twit'Comet") {
 
-	<pre id="debug"><strong>Debug</strong>
-	Dernier ID : <span id="lastId">@lastIdMessage</span>
-	Action : @Template.get("action")</pre>
-	
 	@if(session.get("user.id") != null) {
 	<div id="post-zone" class="row">
-		  <div class="span6 offset3 well">
-		  	<a class="close">&times;</a>
-		  	<label for="twit-zone">Shoot your message</label>
-		  	<textarea id="twit-zone" maxlength="141"></textarea>
-		  	<input type="submit" class="btn-info" value="Twit'it" />
-		  </div>
+		<div class="span6 offset3 well">
+			@helper.form(action = routes.Wall.create()) {
+		  		<a class="close">&times;</a>
+		  		<label for="twit-zone">Shoot your message</label>
+		  		<textarea id="twit-zone" name="message" maxlength="141"></textarea>
+		  		<a class="btn btn-info" id="twitit">Twit'it</a>
+		  	}
+		</div>
 	</div>
 	}
 
@@ -24,6 +21,6 @@
 		}
 	</div>
 	
-	<script>var lastId = @lastIdMessage</script>
+	@wall.messageTemplate()
 
 }

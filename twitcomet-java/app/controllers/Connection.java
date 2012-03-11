@@ -16,7 +16,7 @@ public class Connection extends Controller {
 			flash("error", "Connexion impossible : merci de vérifier vos identifiants");
 		} else {
 			User user = User.findByLogin(formLogin.get().login);
-			flash("success", "Bonjour "+user.login);
+			flash("success", "Bonjour "+user.firstname+" "+user.lastname);
 			login(user);
 		}
 		
@@ -25,6 +25,7 @@ public class Connection extends Controller {
 
 	public static Result logout() {
 		session().clear();
+		flash("success", "Have a nice day !");
 		return redirect(routes.Wall.index());
 	}
 	

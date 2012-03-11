@@ -1,11 +1,7 @@
 @if(flash.contains("success")) {
-	<div class="alert alert-success">
-		@flash.get("success")
-	</div>
+	<script>$(function() { showSuccess("@flash.get("success")"); });</script>
 }
 
 @if(flash.contains("error")) {
-	<div class="alert alert-error">
-		@flash.get("error")
-	</div>
+	<script>$(function() { showError("@flash.get("success")"); });</script>
 }

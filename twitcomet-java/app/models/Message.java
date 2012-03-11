@@ -1,7 +1,6 @@
 package models;
 
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -11,12 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import play.api.Play;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.Query;
 import com.avaje.ebean.validation.NotNull;
+
+import forms.Tweet;
 
 @Entity
 @Table(name="messages")
@@ -43,39 +46,50 @@ public class Message extends Model {
 	public Message reference;
 	
 	@NotNull
+	@JsonIgnore
 	public Date date;
 	
 	public static Finder<Long,Message> find = new Finder<Long,Message>(
 			Long.class, Message.class
 	);
 
+	public Message() {
+		
+	}
+	
+	public Message(Tweet tweet, User author) {
+		this.text = tweet.message;
+		this.author = author;
+		this.date = new Date();
+	}
+	
 	/**
-	 * Retourne les derniers messages à partir d'un ID donné
+	 * Retourne les derniers N derniers messages postés sur le mur global
 	 * @param lastId Si null, retourne les derniers messages
 	 * @return
 	 */
-	public static List<Message> findGlobalLastMessages(final Long lastId) {
-		Query<Message> finder = find;
-		
-		if (lastId != null) {
-			finder = finder.where().gt("id", lastId).query();
-		}
-		
-		List<Message> messages = finder
+	public static List<Message> findInitialMessages() {
+		return find
 				.fetch("reference")
 				.fetch("reference.author")
 				.fetch("author")
-				.orderBy("id ASC")
+				.orderBy("id DESC")
 				.setMaxRows(getPaginationFirstCall())
 				.findList();
-		
-		Collections.reverse(messages);
-		return messages;
+	}
+	
+	public static List<Message> findNewMessages(final Long firstId) {
+		return find
+				.fetch("reference")
+				.fetch("reference.author")
+				.fetch("author")
+				.orderBy("id DESC")
+				.where().gt("id", firstId)
+				.findList();
 	}
 
 
 	private static int getPaginationFirstCall() {
-		// TODO : Trouver comment utiliser GetOrElse
 		final scala.Option<Object> paginationConfig = Play.current().configuration().getInt("pagination.first");
 		return (Integer) (paginationConfig.isDefined() ? paginationConfig.get() : 20);
 	}

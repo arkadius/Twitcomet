@@ -1,7 +1,7 @@
 @(message: Message)
 
 <div class="message well" data-id="@message.id">
-	<p><a href="#" class="auteur">@message.author.firstname @message.author.lastname</a> <span class="login">@@@message.author.login</span></p>
+	<p>#@message.id <a href="#" class="auteur">@message.author.firstname @message.author.lastname</a> <span class="login">@@@message.author.login</span></p>
 	<p class="txt">@message.text</p>
 	@if(message.reference != null) {
 		<p class="ref">En réponse au message <a href="#">#@message.reference.id</a></p>

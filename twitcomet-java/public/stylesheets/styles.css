@@ -1,3 +1,7 @@
+.hide {
+	display: none
+}
+
 #timeline .well {
 	padding: 5px;
 }
@@ -14,6 +18,7 @@
 #timeline .message .txt {
 	font-family:georgia;
 	font-size: 1.2em;
+	word-wrap: break-word;
 }
 
 #timeline .message .info {

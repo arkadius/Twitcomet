@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.h2.util.StringUtils;
 
 import play.data.validation.Constraints;
@@ -40,14 +41,16 @@ public class User extends Model {
 	
 	@Constraints.Required
 	@NotNull
+	@JsonIgnore
 	public String password;
 	
-	@Transient
+	@Transient @JsonIgnore
 	public String password2;
 	
 	@Constraints.Email
 	@Constraints.Required
 	@NotNull
+	@JsonIgnore
 	@Column(unique=true)
 	public String email;
 
@@ -60,13 +63,17 @@ public class User extends Model {
 	public String firstname;
 	
 	@Lob
+	@JsonIgnore
 	public String description;
 	
+	@JsonIgnore
 	public String avatar;
 
 	@NotNull
+	@JsonIgnore
 	public Date registerDate;
-	
+
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 	    name = "following",
@@ -100,7 +107,6 @@ public class User extends Model {
 		if (registerDate == null) {
 			registerDate = new Date();
 		}
-		
 		super.save();
 	}
 	

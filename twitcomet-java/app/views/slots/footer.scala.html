@@ -1,7 +1,21 @@
+@import play.Play
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write("<script src='@routes.Assets.at("javascripts/jquery-1.7.1.min.js")'>\x3C/script>")</script>
 
-<script src="@routes.Assets.at("javascripts/moment.js")"></script>
-<script>moment.lang('fr');</script>
+<script src="https://raw.github.com/jquery/jquery-color/master/jquery.color.js"></script>
+<script>window.jQuery.Color || document.write("<script src='@routes.Assets.at("javascripts/jquery.color.js")'>\x3C/script>")</script>
 
-<script src="@routes.Assets.at("javascripts/script.js")"></script>
+<script src="https://raw.github.com/timrwood/moment/1.4.0/moment.min.js"></script>
+<script>window.moment || document.write("<script src='@routes.Assets.at("javascripts/moment.js")'>\x3C/script>")</script>
+
+<script src="http://cloud.github.com/downloads/wycats/handlebars.js/handlebars-1.0.0.beta.6.js"></script>
+<script>window.handlebars || document.write("<script src='@routes.Assets.at("javascripts/handlebars-1.0.0.beta6.js")'>\x3C/script>")</script>
+
+<script src="@routes.Application.javascriptRoutes"></script>
+
+@if(Play.isDev()) {
+	<script src="@routes.Assets.at("javascripts/scripts.js")"></script>
+} else {
+	<script src="@routes.Assets.at("javascripts/scripts.min.js")"></script>
+}

@@ -14,6 +14,7 @@ import models.User;
 import play.Application;
 import play.GlobalSettings;
 import play.Logger;
+import play.Play;
 import play.libs.Yaml;
 import play.mvc.Action;
 import play.mvc.Http.Request;
@@ -24,22 +25,22 @@ import com.avaje.ebean.TxRunnable;
 
 public class Global extends GlobalSettings {
 
-    public void onStart(Application app) {
+    public void onStart(final Application app) {
     	if (app.isDev() || app.isTest()) {
     		InitialData.insert();
     	}
     }
     
     @Override
-    public Action<?> onRequest(Request req, Method method) {
+    public Action<?> onRequest(final Request req, final Method method) {
     	
     	// Active les logs SQL
-    	Ebean.getServer(null).getAdminLogging().setDebugGeneratedSql(true);
+    	if (Play.isDev()) {
+    		Ebean.getServer(null).getAdminLogging().setDebugGeneratedSql(true);
+    	}
     	
-    	String action = method.getDeclaringClass().getName().replaceFirst("controllers.", "")+"."+method.getName();
-    	Logger.debug("@Call "+action);
-    	
-    	Template.put("action", action);
+    	Template.put("action", method.getDeclaringClass().getName().replaceFirst("controllers.", "")+"."+method.getName());
+    	Template.put("env", Play.isDev() ? "dev" : "prod");
     	
     	return super.onRequest(req, method);
     }

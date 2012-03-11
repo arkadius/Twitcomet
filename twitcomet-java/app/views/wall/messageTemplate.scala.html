@@ -1,0 +1,12 @@
+<script id="messageTemplate" type="text/x-handlebars-template">
+	{{#each messages}}
+	<div class="message well new" data-id="{{id}}">
+		<p>#{{id}} : <a href="#" class="auteur">{{author.firstname}} {{author.lastname}}</a> <span class="login">@@{{author.login}}</span></p>
+		<p class="txt">{{text}}</p>
+		{{#if reference}}
+			<p class="ref">En réponse au message <a href="#">#{{reference.id}}</a></p>
+		{{/if}}
+		<p class="info">Par <a href="#">{{author.login}}</a> le <a href="#" class="date">{{dateFr}}</a></p>
+	</div>
+	{{/each}}
+</script>
