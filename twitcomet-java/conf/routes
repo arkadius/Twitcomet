@@ -15,6 +15,7 @@ GET		/register					controllers.Register.index()
 POST	/register					controllers.Register.validate()
 
 GET		/json/load/:first			controllers.Wall.fetchMessages(first: Long)
+GET		/json/live					controllers.LiveWall.index()
 
 # Javascript routing
 GET     /assets/javascripts/routes  controllers.Application.javascriptRoutes()
