@@ -3,5 +3,5 @@
 }
 
 @if(flash.contains("error")) {
-	<script>$(function() { showError("@flash.get("success")"); });</script>
+	<script>$(function() { showError("@flash.get("error")"); });</script>
 }
