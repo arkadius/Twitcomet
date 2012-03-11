@@ -9,11 +9,11 @@ init = () ->
 	moment.lang 'fr';
 
 # Show global success message		
-window.showSuccess = (message) ->
+showSuccess = (message) ->
 	showMessage message, 'success'
 
 # Show global error message
-window.showError = (message) ->
+showError = (message) ->
 	showMessage message, 'error'
 	
 # Helper to show global message
@@ -38,20 +38,18 @@ loadNewMessages = () ->
 	jsRoutes.controllers.Wall.fetchMessages(lastId).ajax
 		dataType: 'json'
 		success: (data) ->
-			html = loadTemplate('messageTemplate')({ messages: data })
-			$("#timeline").prepend(html)
-			highlightNewMessages()
+			receiveNewMessage data
 		error: ->
 			showError "Cannot retreive new messages"
 
 # Post new message 
-sendMessage = (msg) ->
+sendMessage = (msg, success) ->
 	jsRoutes.controllers.Wall.create().ajax 
 			dataType: 'json'
 			data:
 				message: msg
 			success: ->
-				loadNewMessages()		# TODO : use callback here !!
+				success?()
 			error: ->
 				showError "Your tweet is so null..."
 
@@ -69,7 +67,12 @@ highlightNewMessages = () ->
 			backgroundColor: "#F5F5F5"
 		, 1000
 		
-
+# Display new messages
+receiveNewMessage = (mess) -> 
+	html = loadTemplate('messageTemplate')({ messages: mess })
+	$("#timeline").prepend(html)
+	highlightNewMessages()
+	
 # --------------- When Dom ready -------------
 $ ->
 	
@@ -88,7 +91,18 @@ $ ->
 	# Event : Send tweet
 	$('#twitit').on 'click', (e) ->
 		e.preventDefault()
-		sendMessage($('#twit-zone').val())
-		$('#post-zone textarea').val('');
-					
+		sendMessage $('#twit-zone').val(), ->
+			$('#post-zone textarea').val('');
+			
+	# Event : Send message to debug app
+	$('.send-msg-debug ').on 'click', (e) ->
+		e.preventDefault()
+		nb = $(this).data('nb')
+		sendMessage "Debug #{i}" for i in [0..nb]
+
+
+# --------------- Expose functions to global scope --------------
+window.receiveNewMessage = receiveNewMessage
+window.showError = showError
+window.showSuccess = showSuccess
 		

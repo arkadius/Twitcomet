@@ -3,12 +3,18 @@
 @main("Welcome to Twit'Comet") {
 
 	@wall.sendMessageZone()
+	
+	<p>
+		<a class="send-msg-debug btn btn-warning" data-nb="10">Send 10 messages now</a> 
+		<a class="send-msg-debug btn btn-warning" data-nb="100">Send 100 messages now</a>
+	</p>
+	
 	<div id="timeline">
 		@for(message <- messages) {
 			@wall.message(message)
 		}
 	</div>
 	
-	@wall.messageTemplate()
-
+    @wall.messageTemplate()
+    
 }

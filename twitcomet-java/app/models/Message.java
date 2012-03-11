@@ -12,11 +12,12 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import play.Logger;
 import play.api.Play;
+import play.cache.Cache;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import com.avaje.ebean.Query;
 import com.avaje.ebean.validation.NotNull;
 
 import forms.Tweet;
@@ -26,7 +27,6 @@ import forms.Tweet;
 public class Message extends Model {
 	
 	private static final long serialVersionUID = 1607739783510045149L;
-
 	private static final SimpleDateFormat datetimeFr = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
 	@Id
@@ -53,9 +53,7 @@ public class Message extends Model {
 			Long.class, Message.class
 	);
 
-	public Message() {
-		
-	}
+	public Message() { }
 	
 	public Message(Tweet tweet, User author) {
 		this.text = tweet.message;
@@ -78,6 +76,11 @@ public class Message extends Model {
 				.findList();
 	}
 	
+	/**
+	 * Retourne les nouveaux messages globaux à partir de l'ID du dernier message reçu
+	 * @param firstId
+	 * @return
+	 */
 	public static List<Message> findNewMessages(final Long firstId) {
 		return find
 				.fetch("reference")
@@ -87,11 +90,25 @@ public class Message extends Model {
 				.where().gt("id", firstId)
 				.findList();
 	}
+	
+	/**
+	 * Retourne l'id du dernier message
+	 * @return
+	 */
+	public static Long findLastId() {
+		return find.select("id").orderBy("id DESC").setMaxRows(1).findUnique().id;
+	}
 
 
 	private static int getPaginationFirstCall() {
 		final scala.Option<Object> paginationConfig = Play.current().configuration().getInt("pagination.first");
 		return (Integer) (paginationConfig.isDefined() ? paginationConfig.get() : 20);
+	}
+	
+	@Override
+	public void save() {
+		super.save();
+		Cache.set("comet.lastidsaved", id);
 	}
 	
 	public String getDateFr() {

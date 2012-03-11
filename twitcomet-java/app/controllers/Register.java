@@ -22,7 +22,7 @@ public class Register extends Controller {
 				formUser.reject("password2", "Try again !");
 			}
 			
-			flash("error", "Merci de vérifier les informations saisies");
+			flash("error", "Hey guy, please fill ALL the form ;)");
 			return badRequest(index.render(formUser));
 			
 		} else {
@@ -30,7 +30,7 @@ public class Register extends Controller {
 			user.save();
 			
 			Connection.login(user);
-			flash("success", "Bienvenue sur TwitCommet "+user.login);
+			flash("success", "Welcome on TwitCommet "+user.login);
 			
 			return redirect(routes.Wall.index());
 		}
