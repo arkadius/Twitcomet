@@ -5,14 +5,14 @@ import static java.util.concurrent.TimeUnit.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.jackson.JsonNode;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import models.Message;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import akka.util.Duration;
+import scala.concurrent.duration.Duration;
 import play.Logger;
 import play.cache.Cache;
 import play.libs.Akka;
@@ -29,7 +29,7 @@ public class LiveWall extends Controller {
 	public static Result index() {
 		return ok(new Comet("parent.receiveNewMessage") {
 			public void onConnected() {
-				clock.tell(this);
+				clock.tell(this, null);
 			}
 		});
 	}
@@ -40,7 +40,7 @@ public class LiveWall extends Controller {
 
 		// A quartz to send a refresh message every second
 		static {
-			Akka.system().scheduler().schedule(Duration.Zero(), Duration.create(500, MILLISECONDS), instance, "REFRESH");
+			Akka.system().scheduler().schedule(Duration.Zero(), Duration.create(500, MILLISECONDS), instance, "REFRESH", Akka.system().dispatcher(), null);
 		}
 
 		List<Comet> sockets = new ArrayList<Comet>();
@@ -62,7 +62,7 @@ public class LiveWall extends Controller {
 					// Register disconnected callback
 					cometSocket.onDisconnected(new Callback0() {
 						public void invoke() {
-							getContext().self().tell(cometSocket);
+							getContext().self().tell(cometSocket, getContext().self());
 						}
 					});
 

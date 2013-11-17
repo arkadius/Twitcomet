@@ -14,7 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.h2.util.StringUtils;
 
 import play.data.validation.Constraints;

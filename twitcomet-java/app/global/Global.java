@@ -35,9 +35,9 @@ public class Global extends GlobalSettings {
     public Action<?> onRequest(final Request req, final Method method) {
     	
     	// Active les logs SQL
-    	if (Play.isDev()) {
-    		Ebean.getServer(null).getAdminLogging().setDebugGeneratedSql(true);
-    	}
+    	//if (Play.isDev()) {
+    	//	Ebean.getServer(null).getAdminLogging().setDebugGeneratedSql(true);
+    	//}
     	
     	Template.put("action", method.getDeclaringClass().getName().replaceFirst("controllers.", "")+"."+method.getName());
     	Template.put("env", Play.isDev() ? "dev" : "prod");

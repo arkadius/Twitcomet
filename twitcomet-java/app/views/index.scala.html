@@ -1,4 +1,4 @@
-@(messages: List[Message], lastIdMessage: Long)
+@(messages: List[Message], lastIdMessage: Long)(implicit session: play.mvc.Http.Session, flash: play.mvc.Http.Flash)
 
 @main("Welcome to Twit'Comet") {
 

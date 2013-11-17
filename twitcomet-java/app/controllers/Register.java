@@ -2,6 +2,7 @@ package controllers;
 
 import models.User;
 import play.data.Form;
+import static  play.data.Form.*;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.register.index;
@@ -10,7 +11,7 @@ public class Register extends Controller {
 	
 	public static Result index() {
 		Form<User> formUser = form(User.class);
-		return ok(index.render(formUser));
+		return ok(index.render(formUser, session(), flash()));
 	}
 	
 	public static Result validate() {
@@ -23,7 +24,7 @@ public class Register extends Controller {
 			}
 			
 			flash("error", "Hey guy, please fill ALL the form ;)");
-			return badRequest(index.render(formUser));
+			return badRequest(index.render(formUser, session(), flash()));
 			
 		} else {
 			User user = formUser.get();

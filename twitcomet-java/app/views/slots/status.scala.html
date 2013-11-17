@@ -1,7 +1,8 @@
+@()(implicit session: play.mvc.Http.Session, flash: play.mvc.Http.Flash) 
 @if(flash.contains("success")) {
-	<script>$(function() { showSuccess("@flash.get("success")"); });</script>
+	<script>$(function() { showSuccess("@flash("success")"); });</script>
 }
 
 @if(flash.contains("error")) {
-	<script>$(function() { showError("@flash.get("error")"); });</script>
+	<script>$(function() { showError("@flash("error")"); });</script>
 }

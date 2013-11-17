@@ -1,4 +1,4 @@
-@(userForm: Form[User])
+@(userForm: Form[User])(implicit session: play.mvc.Http.Session, flash: play.mvc.Http.Flash)
 
 @* Active le décorateur twitterBootstrapV2 pour les forms *@
 @import custom.twitterBootstrapV2._

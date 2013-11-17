@@ -1,34 +1,32 @@
-# --- Created by Ebean DDL
-# To stop Ebean DDL generation, remove this comment and start using Evolutions
 
 # --- !Ups
 
 create table mentions (
   id                        bigint auto_increment not null,
-  user_id                   bigint not null,
-  message_id                bigint not null,
+  user_id                   bigint,
+  message_id                bigint,
   constraint pk_mentions primary key (id))
 ;
 
 create table messages (
   id                        bigint auto_increment not null,
-  text                      varchar(141) not null,
-  author_id                 bigint not null,
+  text                      varchar(141),
+  author_id                 bigint,
   reference_id              bigint,
-  date                      datetime not null,
+  date                      datetime,
   constraint pk_messages primary key (id))
 ;
 
 create table users (
   id                        bigint auto_increment not null,
-  login                     varchar(50) not null,
-  password                  varchar(255) not null,
-  email                     varchar(255) not null,
+  login                     varchar(50),
+  password                  varchar(255),
+  email                     varchar(255),
   lastname                  varchar(50),
   firstname                 varchar(50),
   description               longtext,
   avatar                    varchar(255),
-  register_date             datetime not null,
+  register_date             datetime,
   constraint uq_users_login unique (login),
   constraint uq_users_email unique (email),
   constraint pk_users primary key (id))
@@ -49,11 +47,6 @@ create index ix_messages_author_3 on messages (author_id);
 alter table messages add constraint fk_messages_reference_4 foreign key (reference_id) references messages (id) on delete restrict on update restrict;
 create index ix_messages_reference_4 on messages (reference_id);
 
-
-
-alter table following add constraint fk_following_users_01 foreign key (user_id) references users (id) on delete restrict on update restrict;
-
-alter table following add constraint fk_following_users_02 foreign key (friend_id) references users (id) on delete restrict on update restrict;
 
 # --- !Downs
 

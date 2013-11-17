@@ -5,6 +5,7 @@ import java.util.List;
 import forms.Tweet;
 import models.*;
 import play.data.Form;
+import static play.data.Form.*;
 import play.mvc.*;
 import views.html.index;
 
@@ -14,7 +15,7 @@ public class Wall extends Controller {
 		final List<Message> messages = Message.findInitialMessages();
 		final Long lastId = messages.get(messages.size() - 1).id;
 
-		return ok(index.render(messages, lastId));
+		return ok(index.render(messages, lastId, session(), flash()));
 	}
 
 	public static Result fetchMessages(Long firstId) {
